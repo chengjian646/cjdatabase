@@ -27,7 +27,16 @@ public class MainViewHandler extends KeyAdapter implements ActionListener {
         if("增加".equals(text)){
             new AddSRView(mainView);
         }else if("修改".equals(text)){
-            new UpdateSRView(mainView);
+            String[] selectedRecordsIds = mainView.getSelectedRecordsIds();
+            if(selectedRecordsIds.length==0){
+                JOptionPane.showMessageDialog(mainView,"请选择一行!");
+                return;
+            }
+            if(selectedRecordsIds.length!=1){
+                JOptionPane.showMessageDialog(mainView,"一次只能修改一行!");
+                return;
+            }
+            new UpdateSRView(mainView,selectedRecordsIds[0]);
         }else if("删除".equals(text)){
 
         }else if("查询".equals(text)){

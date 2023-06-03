@@ -1,5 +1,6 @@
 package com.roadjava.service.impl;
 
+import com.roadjava.entity.SRDo;
 import com.roadjava.req.StudentRequest;
 import com.roadjava.res.TableDTO;
 import com.roadjava.service.StudentService;
@@ -67,5 +68,82 @@ public class StudentServiceImpl implements StudentService {
             DBUtil.closeConn(conn);
         }
         return null;
+    }
+
+    @Override
+    public boolean add(SRDo srDo) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("insert into StuRace(Sno,Rno,Grade) ");
+        sql.append(" values(?,?,?)");
+        Connection conn = null;
+        PreparedStatement ps=null;
+        try{
+            conn = DBUtil.getConn();
+            ps = conn.prepareStatement(sql.toString());
+            ps.setString(1,srDo.getSno());
+            ps.setString(2,srDo.getRno());
+            ps.setInt(3,srDo.getGrade());
+            return ps.executeUpdate()==1;
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            DBUtil.closePs(ps);
+            DBUtil.closeConn(conn);
+        }
+        return false;
+    }
+
+    @Override
+    public SRDo getById(String selectedRecordsId) {
+        StringBuilder sql = new StringBuilder("select * from StuRace where Sno = ? ");
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        SRDo srDo = new SRDo();
+        try{
+            conn = DBUtil.getConn();
+            ps = conn.prepareStatement(sql.toString());
+            ps.setString(1,selectedRecordsId);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                String sno = rs.getString("Sno");
+                String rno = rs.getString("Rno");
+                int grade = rs.getInt("Grade");
+                srDo.setSno(sno);
+                srDo.setRno(rno);
+                srDo.setGrade(grade);
+            }
+            return srDo;
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally {
+            DBUtil.closeRs(rs);
+            DBUtil.closePs(ps);
+            DBUtil.closeConn(conn);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean update(SRDo srDo) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("update StuRace set Grade=? ");
+        sql.append(" where Sno=? and Rno=?");
+        Connection conn = null;
+        PreparedStatement ps=null;
+        try{
+            conn = DBUtil.getConn();
+            ps = conn.prepareStatement(sql.toString());
+            ps.setInt(1,srDo.getGrade());
+            ps.setString(2,srDo.getSno());
+            ps.setString(3,srDo.getRno());
+            return ps.executeUpdate()==1;
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            DBUtil.closePs(ps);
+            DBUtil.closeConn(conn);
+        }
+        return false;
     }
 }

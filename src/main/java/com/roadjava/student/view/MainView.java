@@ -144,4 +144,14 @@ public class MainView extends JFrame {
         TableDTO tableDTO = studentService.retrieveStudents(request);
         return tableDTO;
     }
+    public  String[] getSelectedRecordsIds(){
+        int[] selectedRows = mainViewTable.getSelectedRows();
+        String[] ids = new String[selectedRows.length];
+        for (int i = 0; i < selectedRows.length; i++) {
+            int rowIndex = selectedRows[i];
+            Object idObj = mainViewTable.getValueAt(rowIndex, 0);
+            ids[i]=idObj.toString();
+        }
+        return ids;
+    }
 }
