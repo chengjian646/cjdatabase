@@ -1,6 +1,7 @@
 package com.roadjava.student.view;
 
 import com.roadjava.entity.SRDo;
+import com.roadjava.entity.SelectSRPK;
 import com.roadjava.handler.UpdateSRViewHandler;
 import com.roadjava.service.StudentService;
 import com.roadjava.service.impl.StudentServiceImpl;
@@ -19,14 +20,14 @@ public class UpdateSRView extends JDialog {
     JButton UpdateBtn = new JButton("修改");
 
     UpdateSRViewHandler updateSRViewHandler;
-    public UpdateSRView(MainView mainView, String selectedRecordsId){
+    public UpdateSRView(MainView mainView, SelectSRPK selectSRPK){
         super(mainView,"修改成绩记录",true);
 
         updateSRViewHandler=new UpdateSRViewHandler(this,mainView);
 
         //查询selectedRecordsId对应的记录并回显
         StudentService studentService = new StudentServiceImpl();
-        SRDo selectedSR = studentService.getById(selectedRecordsId);
+        SRDo selectedSR = studentService.getById(selectSRPK);
 
         SnoLabel.setPreferredSize(new Dimension(80,30));
         jPanel.add(SnoLabel);

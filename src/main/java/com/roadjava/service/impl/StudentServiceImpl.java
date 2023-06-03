@@ -1,6 +1,7 @@
 package com.roadjava.service.impl;
 
 import com.roadjava.entity.SRDo;
+import com.roadjava.entity.SelectSRPK;
 import com.roadjava.req.StudentRequest;
 import com.roadjava.res.TableDTO;
 import com.roadjava.service.StudentService;
@@ -94,8 +95,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public SRDo getById(String selectedRecordsId) {
-        StringBuilder sql = new StringBuilder("select * from StuRace where Sno = ? ");
+    public SRDo getById(SelectSRPK selectSRPK) {
+        StringBuilder sql = new StringBuilder("select * from StuRace where Sno = ? and Rno = ?");
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -103,7 +104,8 @@ public class StudentServiceImpl implements StudentService {
         try{
             conn = DBUtil.getConn();
             ps = conn.prepareStatement(sql.toString());
-            ps.setString(1,selectedRecordsId);
+            ps.setString(1,selectSRPK.getSno()[0]);
+            ps.setString(2,selectSRPK.getRno()[0]);
             rs = ps.executeQuery();
             while(rs.next()){
                 String sno = rs.getString("Sno");
@@ -138,6 +140,50 @@ public class StudentServiceImpl implements StudentService {
             ps.setString(2,srDo.getSno());
             ps.setString(3,srDo.getRno());
             return ps.executeUpdate()==1;
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            DBUtil.closePs(ps);
+            DBUtil.closeConn(conn);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delete(SelectSRPK selectSRPK) {
+        StringBuilder sql = new StringBuilder();
+        int length = selectSRPK.getSno().length;
+        sql.append("delete from StuRace where Sno in ( ");
+        for (int i = 0; i < length; i++) {
+            if(i == (length-1)){
+                sql.append(" ? ");
+            }else {
+                sql.append(" ?, ");
+            }
+        }
+        sql.append(" ) and Rno in ( ");
+        for (int i = 0; i < length; i++) {
+            if(i == (length-1)){
+                sql.append(" ? ");
+            }else {
+                sql.append(" ?, ");
+            }
+        }
+        sql.append(" ) ");
+        Connection conn = null;
+        PreparedStatement ps=null;
+        try{
+            conn = DBUtil.getConn();
+            ps = conn.prepareStatement(sql.toString());
+            //设置参数
+            int i;
+            for (i = 0; i < length; i++) {
+                ps.setString(i+1,selectSRPK.getSno()[i]);
+            }
+            for(;i<2*length;i++){
+                ps.setString(i+1,selectSRPK.getRno()[i-length]);
+            }
+            return ps.executeUpdate()==length;
         }catch (Exception e){
             e.printStackTrace();
         }finally {

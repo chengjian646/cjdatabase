@@ -1,5 +1,6 @@
 package com.roadjava.student.view;
 
+import com.roadjava.entity.SelectSRPK;
 import com.roadjava.handler.LoginHandler;
 import com.roadjava.handler.MainViewHandler;
 import com.roadjava.req.StudentRequest;
@@ -144,14 +145,22 @@ public class MainView extends JFrame {
         TableDTO tableDTO = studentService.retrieveStudents(request);
         return tableDTO;
     }
-    public  String[] getSelectedRecordsIds(){
+
+    //StuRace表有两个主码，封装成对象
+    public  SelectSRPK getSelectedRecordsIds(){
         int[] selectedRows = mainViewTable.getSelectedRows();
-        String[] ids = new String[selectedRows.length];
+        SelectSRPK selectSRPK = new SelectSRPK(selectedRows.length);
+        String[] Sno = new String[selectedRows.length];
+        String[] Rno = new String[selectedRows.length];
         for (int i = 0; i < selectedRows.length; i++) {
             int rowIndex = selectedRows[i];
-            Object idObj = mainViewTable.getValueAt(rowIndex, 0);
-            ids[i]=idObj.toString();
+            Object idObjSno = mainViewTable.getValueAt(rowIndex, 0);
+            Object idObjRno = mainViewTable.getValueAt(rowIndex, 1);
+            Sno[i]=idObjSno.toString();
+            Rno[i]=idObjRno.toString();
         }
-        return ids;
+        selectSRPK.setSno(Sno);
+        selectSRPK.setRno(Rno);
+        return selectSRPK;
     }
 }
