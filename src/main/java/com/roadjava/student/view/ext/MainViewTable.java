@@ -8,7 +8,10 @@ import java.awt.*;
 import java.util.Vector;
 
 public class MainViewTable extends JTable{
-    public MainViewTable() {
+    String tableName;
+    public MainViewTable(String tableName) {
+        this.tableName=tableName;
+        
         JTableHeader tableHeader = getTableHeader();
         tableHeader.setFont(new Font(null, Font.BOLD, 16));
         tableHeader.setForeground(Color.red);
@@ -21,12 +24,25 @@ public class MainViewTable extends JTable{
     }
     public void renderRule(){
         //设置表格列的渲染方式
-        Vector<String> columns = MainViewTableModel.getColumns();
+        Vector<String> columns = null;
+        if("选赛表".equals(tableName)){
+            columns = MainViewTableModel.getColumns(); 
+        }else if("比赛项目表".equals(tableName)){
+            columns = MainViewTableRaceModel.getColumns();
+        }else if("赛程表".equals(tableName)){
+
+        }else if("学生信息表".equals(tableName)){
+
+        }else if("裁判信息表".equals(tableName)){
+
+        }
+
         MainViewCellRender render = new MainViewCellRender();
         for(int i=0;i<columns.size();i++){
             TableColumn column = getColumn(columns.get(i));
-            column.setCellRenderer(render);
-            if(i==0){
+            column.setCellRenderer(render);//设置隔行变色
+
+            if(i==0){//设置第一列固定长度
                 column.setPreferredWidth(100);
                 column.setMaxWidth(100);
                 column.setResizable(false);

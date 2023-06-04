@@ -1,32 +1,27 @@
 package com.roadjava.student.view;
 
 import com.roadjava.entity.SelectSRPK;
-import com.roadjava.handler.LoginHandler;
-import com.roadjava.handler.MainViewHandler;
+import com.roadjava.handler.MainRaceViewHandler;
 import com.roadjava.req.StudentRequest;
 import com.roadjava.res.TableDTO;
-import com.roadjava.service.StudentService;
+import com.roadjava.service.RaceService;
+import com.roadjava.service.impl.RaceServiceImpl;
 import com.roadjava.service.impl.StudentServiceImpl;
 import com.roadjava.student.view.ext.MainViewTable;
-import com.roadjava.student.view.ext.MainViewTableModel;
+import com.roadjava.student.view.ext.MainViewTableRaceModel;
 import com.roadjava.util.DimensionUtil;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.net.URL;
-import java.util.Vector;
 
-public class MainView extends JFrame {
+public class MainRaceView extends JFrame {
     JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JButton addBtn = new JButton("增加");
     JButton updateBtn = new JButton("修改");
     JButton delBtn = new JButton("删除");
     JTextField searchTxt = new JTextField(15);
-    JButton searchBtn= new JButton("(按学号)查询");
+    JButton searchBtn= new JButton("(按比赛编号)查询");
 
     JPanel southPanel = new JPanel(new FlowLayout((FlowLayout.RIGHT)));
     JButton preBtn = new JButton("上一页");
@@ -36,22 +31,22 @@ public class MainView extends JFrame {
 
     private int pageNow=1;//当前第几页
     private int pagesize=3;//一页显示的记录条数
-    MainViewHandler mainViewHandler;
+    MainRaceViewHandler mainRaceViewHandler;
 
     String tableName;
-    public MainView(String tableName) {
+    public MainRaceView(String tableName) {
         super("运动会信息管理系统");
         this.tableName=tableName;
         mainViewTable = new MainViewTable(tableName);
 
         Container contentPane = getContentPane();
-        mainViewHandler = new MainViewHandler(this);
+        mainRaceViewHandler = new MainRaceViewHandler(this);
 
         LayoutNorth(contentPane);//背面
         LayoutCenter(contentPane);//中间
         LayoutSouth(contentPane);//南面
 
-        URL imgUrl = MainView.class.getClassLoader().getResource("ice.png");
+        URL imgUrl = MainRaceView.class.getClassLoader().getResource("ice.png");
         setIconImage(new ImageIcon(imgUrl).getImage());
 
         setBounds(DimensionUtil.getBounds());
@@ -69,8 +64,8 @@ public class MainView extends JFrame {
     private void LayoutCenter(Container contentPane) {
         TableDTO dto = getTableDTO();
 
-        MainViewTableModel mainViewTableModel = MainViewTableModel.assembleModel(dto.getData());//设置固定的列名
-        mainViewTable.setModel(mainViewTableModel);
+        MainViewTableRaceModel mainViewTableRaceModel = MainViewTableRaceModel.assembleModel(dto.getData());//设置固定的列名
+        mainViewTable.setModel(mainViewTableRaceModel);
         mainViewTable.renderRule();//表格列的渲染方式，如每列多宽
         JScrollPane jScrollPane = new JScrollPane(mainViewTable);//放在滚动面板上
         contentPane.add(jScrollPane,BorderLayout.CENTER);
@@ -79,10 +74,10 @@ public class MainView extends JFrame {
 
     private void LayoutNorth(Container contentPane) {
         //增加事件监听
-        addBtn.addActionListener(mainViewHandler);
-        updateBtn.addActionListener(mainViewHandler);
-        delBtn.addActionListener(mainViewHandler);
-        searchBtn.addActionListener(mainViewHandler);
+        addBtn.addActionListener(mainRaceViewHandler);
+        updateBtn.addActionListener(mainRaceViewHandler);
+        delBtn.addActionListener(mainRaceViewHandler);
+        searchBtn.addActionListener(mainRaceViewHandler);
         northPanel.add(addBtn);
         northPanel.add(updateBtn);
         northPanel.add(delBtn);
@@ -93,8 +88,8 @@ public class MainView extends JFrame {
     }
 
     private void LayoutSouth(Container contentPane) {
-        preBtn.addActionListener(mainViewHandler);
-        nextBtn.addActionListener(mainViewHandler);
+        preBtn.addActionListener(mainRaceViewHandler);
+        nextBtn.addActionListener(mainRaceViewHandler);
 
         southPanel.add(preBtn);
         southPanel.add(nextBtn);
@@ -131,38 +126,30 @@ public class MainView extends JFrame {
     public void reloadTable() {
         TableDTO dto = getTableDTO();
 
-        MainViewTableModel.updateModel(dto.getData());
+        MainViewTableRaceModel.updateModel(dto.getData());
 
         mainViewTable.renderRule();//控制行距等的渲染
         showPreNext(dto.getTotalCount());
     }
 
     private TableDTO getTableDTO() {
-        StudentService studentService = new StudentServiceImpl();
+        RaceService raceService = new RaceServiceImpl();
         StudentRequest request = new StudentRequest();
         request.setPageNow(pageNow);
         request.setPageSize(pagesize);
         request.setSerachKey(searchTxt.getText().trim());
-        TableDTO tableDTO = studentService.retrieveStudents(request);
+        TableDTO tableDTO = raceService.retrieveRaces(request);
         return tableDTO;
     }
 
-    //StuRace表有两个主码，封装成对象
-    public  SelectSRPK getSelectedRecordsIds(){
+    public String[] getSelectedRaces() {
         int[] selectedRows = mainViewTable.getSelectedRows();
-        SelectSRPK selectSRPK = new SelectSRPK(selectedRows.length);
-        String[] Sno = new String[selectedRows.length];
-        String[] Rno = new String[selectedRows.length];
+        String[] Rnos = new String[selectedRows.length];
         for (int i = 0; i < selectedRows.length; i++) {
             int rowIndex = selectedRows[i];
-            Object idObjSno = mainViewTable.getValueAt(rowIndex, 0);
-            Object idObjRno = mainViewTable.getValueAt(rowIndex, 1);
-            Sno[i]=idObjSno.toString();
-            Rno[i]=idObjRno.toString();
+            Object RnoObj = mainViewTable.getValueAt(rowIndex, 0);
+            Rnos[i] = String.valueOf(RnoObj.toString());
         }
-        selectSRPK.setSno(Sno);
-        selectSRPK.setRno(Rno);
-        return selectSRPK;
+        return Rnos;
     }
-
 }
