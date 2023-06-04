@@ -5,6 +5,16 @@ public class AdminDO {
     private String userName;
     private String pwd;
 
+    public String getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
+    }
+
+    private String identity;
+
     public Integer getId() {
         return id;
     }

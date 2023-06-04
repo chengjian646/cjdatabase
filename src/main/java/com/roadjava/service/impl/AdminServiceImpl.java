@@ -13,17 +13,17 @@ public class AdminServiceImpl implements AdminService {
     public boolean validateAdmin(AdminDO adminDO) {
         String userName = adminDO.getUserName();
         String pwdParam = adminDO.getPwd();
-        String sql="select pwd from manager where user_name = ? ";
+        StringBuilder sql = new StringBuilder();
+        sql.append("select pwd from "+ adminDO.getIdentity()+" where user_name = ? ");
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet resultSet = null;
         try{
             conn= DBUtil.getConn();
-            //System.out.println(conn);
             if(conn==null){
                 return false;
             }
-            ps = conn.prepareStatement(sql);
+            ps = conn.prepareStatement(sql.toString());
             ps.setString(1,adminDO.getUserName());
             resultSet = ps.executeQuery();
             while(resultSet.next()){
@@ -32,7 +32,6 @@ public class AdminServiceImpl implements AdminService {
                     return true;
                 }
             }
-            System.out.println("location4");
         }catch (Exception e){
             e.printStackTrace();
         }finally {

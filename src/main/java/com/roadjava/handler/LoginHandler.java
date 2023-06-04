@@ -3,6 +3,7 @@ package com.roadjava.handler;
 import com.roadjava.entity.AdminDO;
 import com.roadjava.service.AdminService;
 import com.roadjava.service.impl.AdminServiceImpl;
+import com.roadjava.student.view.ChooseTableView;
 import com.roadjava.student.view.LoginView;
 import com.roadjava.student.view.MainView;
 
@@ -15,6 +16,7 @@ import java.util.Locale;
 
 public class LoginHandler extends KeyAdapter implements ActionListener {
     private LoginView loginView;
+    private String Identity;
     public LoginHandler(LoginView loginView){
         this.loginView=loginView;
     }
@@ -26,6 +28,17 @@ public class LoginHandler extends KeyAdapter implements ActionListener {
             loginView.getUserTxt().setText("");
             loginView.getPwdField().setText("");
         }else if("登录".equals(text)){
+
+            if(loginView.getManagerButton().isSelected()){
+                Identity=loginView.getManagerButton().getText();
+            }else if(loginView.getstudentLoginButton().isSelected()){
+                Identity=loginView.getstudentLoginButton().getText();
+            }else if(loginView.getJudgementButton().isSelected()){
+                Identity=loginView.getJudgementButton().getText();
+            }else{
+                JOptionPane.showMessageDialog(loginView,"请选择你的身份!");
+                return;
+            }
             login();
         }
     }
@@ -42,13 +55,14 @@ public class LoginHandler extends KeyAdapter implements ActionListener {
         System.out.println(user+":"+pwd);
         //查询db
         AdminService adminService= new AdminServiceImpl();
-        AdminDO adminDO = new AdminDO();
+        AdminDO adminDO = new AdminDO();//adminDo里有个属性是身份
         adminDO.setUserName(user);
         adminDO.setPwd(pwd);
+        adminDO.setIdentity(Identity);
         boolean flag=adminService.validateAdmin(adminDO);
         if(flag){
             //跳转到主界面并销毁登录界面
-            new MainView();
+            new ChooseTableView(Identity);
             loginView.dispose();
         }else{
             JOptionPane.showMessageDialog(loginView,"用户名或密码错误");

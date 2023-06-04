@@ -26,7 +26,7 @@ public class MainView extends JFrame {
     JButton updateBtn = new JButton("修改");
     JButton delBtn = new JButton("删除");
     JTextField searchTxt = new JTextField(15);
-    JButton searchBtn= new JButton("查询");
+    JButton searchBtn= new JButton("(按学号)查询");
 
     JPanel southPanel = new JPanel(new FlowLayout((FlowLayout.RIGHT)));
     JButton preBtn = new JButton("上一页");

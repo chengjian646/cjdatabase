@@ -60,7 +60,7 @@ public class MainViewHandler extends KeyAdapter implements ActionListener {
                     JOptionPane.showMessageDialog(mainView,"删除失败!");
                 }
             }
-        }else if("查询".equals(text)){
+        }else if("(按学号)查询".equals(text)){
             mainView.setPageNow(1);
             mainView.reloadTable();
         }else if("上一页".equals(text)){

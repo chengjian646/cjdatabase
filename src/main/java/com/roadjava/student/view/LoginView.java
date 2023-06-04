@@ -22,6 +22,10 @@ public class LoginView extends JFrame {
     JLabel pwdLabel = new JLabel("密码：");
     JPasswordField pwdField =new JPasswordField();
 
+    JRadioButton managerButton = new JRadioButton("manager");
+    JRadioButton studentLoginButton = new JRadioButton("studentlogin");
+    JRadioButton judgementButton = new JRadioButton("judgement");
+
     JButton loginBtn = new JButton("登录");
     JButton resetBtn = new JButton("重置");
 
@@ -29,6 +33,9 @@ public class LoginView extends JFrame {
     TrayIcon trayIcon;
 
     LoginHandler loginHandler;
+
+
+
     public LoginView() {
         super("运动会信息管理系统");
 
@@ -44,6 +51,12 @@ public class LoginView extends JFrame {
         userTxt.setPreferredSize(new Dimension(200,30));
         pwdLabel.setFont(centerFont);
         pwdField.setPreferredSize(new Dimension(200,30));
+        managerButton.setPreferredSize(new Dimension(100,30));
+        managerButton.setFont(centerFont);
+        studentLoginButton.setPreferredSize(new Dimension(200,30));
+        studentLoginButton.setFont(centerFont);
+        judgementButton.setPreferredSize(new Dimension(200,30));
+        judgementButton.setFont(centerFont);
         loginBtn.setFont(centerFont);
         resetBtn.setFont(centerFont);
         //把组件加入面板
@@ -51,8 +64,13 @@ public class LoginView extends JFrame {
         centerPanel.add(userTxt);
         centerPanel.add(pwdLabel);
         centerPanel.add(pwdField);
+        centerPanel.add(managerButton);
+        centerPanel.add(studentLoginButton);
+        centerPanel.add(judgementButton);
+
         loginBtn.addActionListener(loginHandler);
         loginBtn.addKeyListener(loginHandler);//按回车，登录
+
         centerPanel.add(loginBtn);
         resetBtn.addActionListener(loginHandler);
         centerPanel.add(resetBtn);
@@ -127,9 +145,19 @@ public class LoginView extends JFrame {
         //pwdField
         springLayout.putConstraint(SpringLayout.WEST,pwdField,20,SpringLayout.EAST,pwdLabel);
         springLayout.putConstraint(SpringLayout.NORTH,pwdField,0,SpringLayout.NORTH,pwdLabel);
+        //managerButton
+        springLayout.putConstraint(SpringLayout.WEST,managerButton,0,SpringLayout.WEST,pwdField);
+        springLayout.putConstraint(SpringLayout.NORTH,managerButton,10,SpringLayout.SOUTH,pwdField);
+        //studentLoginButton
+        springLayout.putConstraint(SpringLayout.WEST,studentLoginButton,0,SpringLayout.WEST,pwdField);
+        springLayout.putConstraint(SpringLayout.NORTH,studentLoginButton,10,SpringLayout.SOUTH,managerButton);
+        //judgementButton
+        springLayout.putConstraint(SpringLayout.WEST,judgementButton,0,SpringLayout.WEST,pwdField);
+        springLayout.putConstraint(SpringLayout.NORTH,judgementButton,10,SpringLayout.SOUTH,studentLoginButton);
+
         //loginBtn
         springLayout.putConstraint(SpringLayout.WEST,loginBtn,55,SpringLayout.WEST,pwdLabel);
-        springLayout.putConstraint(SpringLayout.NORTH,loginBtn,20,SpringLayout.SOUTH,pwdLabel);
+        springLayout.putConstraint(SpringLayout.NORTH,loginBtn,150,SpringLayout.SOUTH,pwdLabel);
         //resetBtn
         springLayout.putConstraint(SpringLayout.WEST,resetBtn,55,SpringLayout.EAST,loginBtn);
         springLayout.putConstraint(SpringLayout.NORTH,resetBtn,0,SpringLayout.NORTH,loginBtn);
@@ -146,5 +174,15 @@ public class LoginView extends JFrame {
     public JPasswordField getPwdField() {
         return pwdField;
     }
+    public JRadioButton getManagerButton() {
+        return managerButton;
+    }
 
+    public JRadioButton getstudentLoginButton() {
+        return studentLoginButton;
+    }
+
+    public JRadioButton getJudgementButton() {
+        return judgementButton;
+    }
 }
