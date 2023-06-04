@@ -30,7 +30,7 @@ public class MainViewTable extends JTable{
         }else if("比赛项目表".equals(tableName)){
             columns = MainViewTableRaceModel.getColumns();
         }else if("赛程表".equals(tableName)){
-
+            columns = MainViewTableRaceTimeModel.getColumns();
         }else if("学生信息表".equals(tableName)){
 
         }else if("裁判信息表".equals(tableName)){

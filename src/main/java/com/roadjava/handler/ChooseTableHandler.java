@@ -3,10 +3,7 @@ package com.roadjava.handler;
 import com.roadjava.entity.SRDo;
 import com.roadjava.service.StudentService;
 import com.roadjava.service.impl.StudentServiceImpl;
-import com.roadjava.student.view.AddSRView;
-import com.roadjava.student.view.ChooseTableView;
-import com.roadjava.student.view.MainRaceView;
-import com.roadjava.student.view.MainView;
+import com.roadjava.student.view.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -27,7 +24,7 @@ public class ChooseTableHandler extends KeyAdapter implements ActionListener {
         }else if("比赛项目表".equals(tableName)){
             new MainRaceView(tableName);
         }else if("赛程表".equals(tableName)){
-
+            new MainRaceTimeView(tableName);
         }else if("学生信息表".equals(tableName)){
 
         }else if("裁判信息表".equals(tableName)){

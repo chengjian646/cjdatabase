@@ -13,14 +13,14 @@ public class MainViewTableRaceModel extends DefaultTableModel {
     private MainViewTableRaceModel(){
         super(null,columns);
     }
-    private static MainViewTableRaceModel mainViewTableModel = new MainViewTableRaceModel();
+    private static MainViewTableRaceModel mainViewTableRaceModel = new MainViewTableRaceModel();
 
     public static MainViewTableRaceModel assembleModel(Vector<Vector<Object>> data){
-        mainViewTableModel.setDataVector(data,columns);
-        return mainViewTableModel;
+        mainViewTableRaceModel.setDataVector(data,columns);
+        return mainViewTableRaceModel;
     }
     public static void updateModel(Vector<Vector<Object>> data){
-        mainViewTableModel.setDataVector(data,columns);
+        mainViewTableRaceModel.setDataVector(data,columns);
     }
 
     public static Vector<String> getColumns(){
