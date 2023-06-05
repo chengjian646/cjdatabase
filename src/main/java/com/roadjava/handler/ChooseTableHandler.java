@@ -1,9 +1,7 @@
 package com.roadjava.handler;
 
-import com.roadjava.entity.SRDo;
-import com.roadjava.service.StudentService;
-import com.roadjava.service.impl.StudentServiceImpl;
 import com.roadjava.student.view.*;
+import com.roadjava.student.view.Main.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
