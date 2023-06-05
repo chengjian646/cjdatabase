@@ -33,7 +33,7 @@ public class MainRaceView extends JFrame {
 
     String tableName;
     public MainRaceView(String tableName) {
-        super("运动会信息管理系统");
+        super("运动会信息管理系统-比赛项目表");
         this.tableName=tableName;
         mainViewTable = new MainViewTable(tableName);
 

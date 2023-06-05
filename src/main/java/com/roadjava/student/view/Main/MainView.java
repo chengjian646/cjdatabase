@@ -34,7 +34,7 @@ public class MainView extends JFrame {
 
     String tableName;
     public MainView(String tableName) {
-        super("运动会信息管理系统");
+        super("运动会信息管理系统-选赛表");
         this.tableName=tableName;
         mainViewTable = new MainViewTable(tableName);
 
