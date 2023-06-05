@@ -4,7 +4,7 @@ import com.roadjava.entity.SRDo;
 import com.roadjava.entity.SelectSRPK;
 import com.roadjava.req.StudentRequest;
 import com.roadjava.res.TableDTO;
-import com.roadjava.service.StudentService;
+import com.roadjava.service.interf.StudentService;
 import com.roadjava.util.DBUtil;
 
 import java.sql.Connection;

@@ -1,7 +1,7 @@
 package com.roadjava.service.impl;
 
 import com.roadjava.entity.AdminDO;
-import com.roadjava.service.AdminService;
+import com.roadjava.service.interf.AdminService;
 import com.roadjava.util.DBUtil;
 
 import java.sql.Connection;

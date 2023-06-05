@@ -1,7 +1,7 @@
 package com.roadjava.handler.Add;
 
 import com.roadjava.entity.SRDo;
-import com.roadjava.service.StudentService;
+import com.roadjava.service.interf.StudentService;
 import com.roadjava.service.impl.StudentServiceImpl;
 import com.roadjava.student.view.Add.AddSRView;
 import com.roadjava.student.view.Main.MainView;

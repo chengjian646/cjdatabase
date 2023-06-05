@@ -1,7 +1,7 @@
 package com.roadjava.handler.Update;
 
 import com.roadjava.entity.RaceTimeDo;
-import com.roadjava.service.RaceTimeService;
+import com.roadjava.service.interf.RaceTimeService;
 import com.roadjava.service.impl.RaceTimeServiceImpl;
 import com.roadjava.student.view.Main.MainRaceTimeView;
 import com.roadjava.student.view.Update.UpdateRaceTimeView;

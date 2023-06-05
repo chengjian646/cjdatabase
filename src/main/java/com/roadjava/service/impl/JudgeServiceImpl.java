@@ -3,8 +3,7 @@ package com.roadjava.service.impl;
 import com.roadjava.entity.JDo;
 import com.roadjava.req.JudgeRequest;
 import com.roadjava.res.TableDTO;
-import com.roadjava.service.JudgeService;
-import com.roadjava.service.StudentSService;
+import com.roadjava.service.interf.JudgeService;
 import com.roadjava.util.DBUtil;
 
 import java.sql.Connection;

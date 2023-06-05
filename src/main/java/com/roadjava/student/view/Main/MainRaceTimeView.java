@@ -3,7 +3,7 @@ package com.roadjava.student.view.Main;
 import com.roadjava.handler.Main.MainRaceTimeViewHandler;
 import com.roadjava.req.RaceTimeRequest;
 import com.roadjava.res.TableDTO;
-import com.roadjava.service.RaceTimeService;
+import com.roadjava.service.interf.RaceTimeService;
 import com.roadjava.service.impl.RaceTimeServiceImpl;
 import com.roadjava.student.view.ext.MainViewTable;
 import com.roadjava.student.view.ext.MainViewTableRaceTimeModel;

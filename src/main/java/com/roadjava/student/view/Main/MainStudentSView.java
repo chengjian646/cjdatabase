@@ -3,7 +3,7 @@ package com.roadjava.student.view.Main;
 import com.roadjava.handler.Main.MainStudentSViewHandler;
 import com.roadjava.req.StudentSRequest;
 import com.roadjava.res.TableDTO;
-import com.roadjava.service.StudentSService;
+import com.roadjava.service.interf.StudentSService;
 import com.roadjava.service.impl.StudentSServiceImpl;
 import com.roadjava.student.view.ext.MainViewTable;
 import com.roadjava.student.view.ext.MainViewTableStuModel;
@@ -21,9 +21,9 @@ public class MainStudentSView extends JFrame {
     JLabel searchLabel = new JLabel("学号：");
     JTextField searchTxt = new JTextField(10);
     JLabel snameLabel = new JLabel("学生姓名：");
-    JTextField snameTxt = new JTextField(15);
+    JTextField snameTxt = new JTextField(10);
     JLabel sgenderLabel = new JLabel("性别(M/W)：");
-    JTextField sgenderTxt = new JTextField(5);
+    JTextField sgenderTxt = new JTextField(10);
     
     JLabel ageLabel = new JLabel("年龄查询范围：");
     JTextField agelow = new JTextField(10);
@@ -98,7 +98,7 @@ public class MainStudentSView extends JFrame {
         snameLabel.setPreferredSize(new Dimension(70,30));
         northPanel.add(snameLabel);
         northPanel.add(snameTxt);
-        sgenderLabel.setPreferredSize(new Dimension(50,30));
+        sgenderLabel.setPreferredSize(new Dimension(70,30));
         northPanel.add(sgenderLabel);
         northPanel.add(sgenderTxt);
         ageLabel.setPreferredSize(new Dimension(100,30));

@@ -4,7 +4,7 @@ import com.roadjava.entity.SelectSRPK;
 import com.roadjava.handler.Main.MainViewHandler;
 import com.roadjava.req.StudentRequest;
 import com.roadjava.res.TableDTO;
-import com.roadjava.service.StudentService;
+import com.roadjava.service.interf.StudentService;
 import com.roadjava.service.impl.StudentServiceImpl;
 import com.roadjava.student.view.ext.MainViewTable;
 import com.roadjava.student.view.ext.MainViewTableModel;

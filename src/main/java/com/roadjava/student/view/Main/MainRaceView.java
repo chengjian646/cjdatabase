@@ -3,7 +3,7 @@ package com.roadjava.student.view.Main;
 import com.roadjava.handler.Main.MainRaceViewHandler;
 import com.roadjava.req.RaceRequest;
 import com.roadjava.res.TableDTO;
-import com.roadjava.service.RaceService;
+import com.roadjava.service.interf.RaceService;
 import com.roadjava.service.impl.RaceServiceImpl;
 import com.roadjava.student.view.ext.MainViewTable;
 import com.roadjava.student.view.ext.MainViewTableRaceModel;

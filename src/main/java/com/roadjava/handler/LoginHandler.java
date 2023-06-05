@@ -1,7 +1,7 @@
 package com.roadjava.handler;
 
 import com.roadjava.entity.AdminDO;
-import com.roadjava.service.AdminService;
+import com.roadjava.service.interf.AdminService;
 import com.roadjava.service.impl.AdminServiceImpl;
 import com.roadjava.student.view.ChooseTableView;
 import com.roadjava.student.view.LoginView;

@@ -3,8 +3,7 @@ package com.roadjava.service.impl;
 import com.roadjava.entity.RaceDo;
 import com.roadjava.req.RaceRequest;
 import com.roadjava.res.TableDTO;
-import com.roadjava.service.RaceService;
-import com.roadjava.service.StudentService;
+import com.roadjava.service.interf.RaceService;
 import com.roadjava.util.DBUtil;
 
 import java.sql.Connection;

@@ -2,7 +2,7 @@ package com.roadjava.student.view.Update;
 
 import com.roadjava.entity.SDo;
 import com.roadjava.handler.Update.UpdateSViewHandler;
-import com.roadjava.service.StudentSService;
+import com.roadjava.service.interf.StudentSService;
 import com.roadjava.service.impl.StudentSServiceImpl;
 import com.roadjava.student.view.Main.MainStudentSView;
 

@@ -1,4 +1,4 @@
-package com.roadjava.service;
+package com.roadjava.service.interf;
 
 import com.roadjava.entity.AdminDO;
 

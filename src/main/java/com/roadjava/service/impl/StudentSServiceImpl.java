@@ -1,10 +1,9 @@
 package com.roadjava.service.impl;
 
 import com.roadjava.entity.SDo;
-import com.roadjava.entity.SelectSRPK;
 import com.roadjava.req.StudentSRequest;
 import com.roadjava.res.TableDTO;
-import com.roadjava.service.StudentSService;
+import com.roadjava.service.interf.StudentSService;
 import com.roadjava.util.DBUtil;
 
 import java.sql.Connection;

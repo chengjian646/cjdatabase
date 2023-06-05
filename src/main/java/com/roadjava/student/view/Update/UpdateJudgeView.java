@@ -2,7 +2,7 @@ package com.roadjava.student.view.Update;
 
 import com.roadjava.entity.JDo;
 import com.roadjava.handler.Update.UpdateJudgeViewHandler;
-import com.roadjava.service.JudgeService;
+import com.roadjava.service.interf.JudgeService;
 import com.roadjava.service.impl.JudgeServiceImpl;
 import com.roadjava.student.view.Main.MainJudgeView;
 

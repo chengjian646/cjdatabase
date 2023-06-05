@@ -1,6 +1,6 @@
 package com.roadjava.handler.Main;
 
-import com.roadjava.service.StudentSService;
+import com.roadjava.service.interf.StudentSService;
 import com.roadjava.service.impl.StudentSServiceImpl;
 import com.roadjava.student.view.Add.AddSView;
 import com.roadjava.student.view.Main.MainStudentSView;

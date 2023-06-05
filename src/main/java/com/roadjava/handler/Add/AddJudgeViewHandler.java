@@ -1,7 +1,7 @@
 package com.roadjava.handler.Add;
 
 import com.roadjava.entity.JDo;
-import com.roadjava.service.JudgeService;
+import com.roadjava.service.interf.JudgeService;
 import com.roadjava.service.impl.JudgeServiceImpl;
 import com.roadjava.student.view.Add.AddJudgeView;
 import com.roadjava.student.view.Main.MainJudgeView;
