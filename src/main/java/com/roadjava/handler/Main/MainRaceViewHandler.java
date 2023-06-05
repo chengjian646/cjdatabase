@@ -53,7 +53,7 @@ public class MainRaceViewHandler extends KeyAdapter implements ActionListener {
                     JOptionPane.showMessageDialog(mainRaceView,"删除失败!");
                 }
             }
-        }else if("(按比赛编号)查询".equals(text)){
+        }else if("查询".equals(text)){
             mainRaceView.setPageNow(1);
             mainRaceView.reloadTable();
         }else if("上一页".equals(text)){

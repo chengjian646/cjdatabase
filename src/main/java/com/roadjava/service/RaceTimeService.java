@@ -1,11 +1,11 @@
 package com.roadjava.service;
 
 import com.roadjava.entity.RaceTimeDo;
-import com.roadjava.req.StudentRequest;
+import com.roadjava.req.RaceTimeRequest;
 import com.roadjava.res.TableDTO;
 
 public interface RaceTimeService {
-    TableDTO retrieveRaceTimes(StudentRequest request);
+    TableDTO retrieveRaceTimes(RaceTimeRequest request);
 
     boolean add(RaceTimeDo raceDo);
 

@@ -1,11 +1,11 @@
 package com.roadjava.service;
 
 import com.roadjava.entity.JDo;
-import com.roadjava.req.StudentRequest;
+import com.roadjava.req.JudgeRequest;
 import com.roadjava.res.TableDTO;
 
 public interface JudgeService {
-    TableDTO retrieveStudents(StudentRequest request);
+    TableDTO retrieveStudents(JudgeRequest request);
 
     boolean add(JDo jDo);
 

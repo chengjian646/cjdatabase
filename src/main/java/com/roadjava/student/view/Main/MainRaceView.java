@@ -1,7 +1,7 @@
 package com.roadjava.student.view.Main;
 
 import com.roadjava.handler.Main.MainRaceViewHandler;
-import com.roadjava.req.StudentRequest;
+import com.roadjava.req.RaceRequest;
 import com.roadjava.res.TableDTO;
 import com.roadjava.service.RaceService;
 import com.roadjava.service.impl.RaceServiceImpl;
@@ -18,8 +18,11 @@ public class MainRaceView extends JFrame {
     JButton addBtn = new JButton("增加");
     JButton updateBtn = new JButton("修改");
     JButton delBtn = new JButton("删除");
+    JLabel searchLabel = new JLabel("比赛编号：");
     JTextField searchTxt = new JTextField(15);
-    JButton searchBtn= new JButton("(按比赛编号)查询");
+    JLabel rnameLabel = new JLabel("比赛名称：");
+    JTextField rnameTxt = new JTextField(15);
+    JButton searchBtn= new JButton("查询");
 
     JPanel southPanel = new JPanel(new FlowLayout((FlowLayout.RIGHT)));
     JButton preBtn = new JButton("上一页");
@@ -79,7 +82,12 @@ public class MainRaceView extends JFrame {
         northPanel.add(addBtn);
         northPanel.add(updateBtn);
         northPanel.add(delBtn);
+        searchLabel.setPreferredSize(new Dimension(70,30));
+        northPanel.add(searchLabel);
         northPanel.add(searchTxt);
+        rnameLabel.setPreferredSize(new Dimension(70,30));
+        northPanel.add(rnameLabel);
+        northPanel.add(rnameTxt);
         northPanel.add(searchBtn);
 
         contentPane.add(northPanel,BorderLayout.NORTH);
@@ -132,10 +140,11 @@ public class MainRaceView extends JFrame {
 
     private TableDTO getTableDTO() {
         RaceService raceService = new RaceServiceImpl();
-        StudentRequest request = new StudentRequest();
+        RaceRequest request = new RaceRequest();
         request.setPageNow(pageNow);
         request.setPageSize(pagesize);
         request.setSerachKey(searchTxt.getText().trim());
+        request.setRname(rnameTxt.getText().trim());
         TableDTO tableDTO = raceService.retrieveRaces(request);
         return tableDTO;
     }

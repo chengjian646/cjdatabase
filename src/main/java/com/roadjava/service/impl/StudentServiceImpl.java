@@ -16,15 +16,23 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public TableDTO retrieveStudents(StudentRequest request) {
         StringBuilder sql = new StringBuilder();
-        /*sql.append("select * from StuRace");
-        if(request.getSerachKey()!=null&&!"".equals(request.getSerachKey().trim())){
-            sql.append(" where Sno like '%"+request.getSerachKey().trim()+"%'");
-        }*/
         sql.append("select * from (select * from StuRace ");
+        boolean hasK=false;
         if(request.getSerachKey()!=null&&!"".equals(request.getSerachKey().trim())){
             sql.append("where Sno like '%"+request.getSerachKey().trim()+"%'");
+            hasK=true;
         }
-        sql.append(" order by Sno asc )offset ").append(request.getStart()).append(" rows fetch next ")
+        if(request.getGradeLow()!=null&&!"".equals(request.getGradeLow().trim())&&
+           request.getGradeHigh()!=null&&!"".equals(request.getGradeHigh().trim())){
+            if(hasK==false){
+                sql.append(" where ");
+            }else{
+                sql.append(" and ");
+            }
+            sql.append("Grade between ").append(Integer.valueOf(request.getGradeLow())).append(" and ")
+                    .append(Integer.valueOf(request.getGradeHigh()));
+        }
+        sql.append(" order by Rno asc,Grade desc )offset ").append(request.getStart()).append(" rows fetch next ")
                 .append(request.getPageSize()).append(" rows only");//控制每页的数量
 
         Connection conn = null;

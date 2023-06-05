@@ -53,7 +53,7 @@ public class MainJudgeViewHandler extends KeyAdapter implements ActionListener {
                     JOptionPane.showMessageDialog(mainJudgeView,"删除失败!");
                 }
             }
-        }else if("(按工号)查询".equals(text)){
+        }else if("查询".equals(text)){
             mainJudgeView.setPageNow(1);
             mainJudgeView.reloadTable();
         }else if("上一页".equals(text)){

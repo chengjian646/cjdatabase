@@ -19,8 +19,14 @@ public class MainView extends JFrame {
     JButton addBtn = new JButton("增加");
     JButton updateBtn = new JButton("修改");
     JButton delBtn = new JButton("删除");
+    JLabel searchLabel = new JLabel("学号：");
     JTextField searchTxt = new JTextField(15);
-    JButton searchBtn= new JButton("(按学号)查询");
+    JButton searchBtn= new JButton("查询");
+
+    JLabel gradeLabel = new JLabel("成绩查询范围：");
+    JTextField gradelow = new JTextField(10);
+    JLabel charLabel = new JLabel(" -");
+    JTextField gradehigh = new JTextField(10);
 
     JPanel southPanel = new JPanel(new FlowLayout((FlowLayout.RIGHT)));
     JButton preBtn = new JButton("上一页");
@@ -80,9 +86,18 @@ public class MainView extends JFrame {
         northPanel.add(addBtn);
         northPanel.add(updateBtn);
         northPanel.add(delBtn);
+        searchLabel.setPreferredSize(new Dimension(50,30));
+        northPanel.add(searchLabel);
         northPanel.add(searchTxt);
-        northPanel.add(searchBtn);
 
+
+        gradeLabel.setPreferredSize(new Dimension(100,30));
+        northPanel.add(gradeLabel);
+        northPanel.add(gradelow);
+        charLabel.setPreferredSize(new Dimension(10,30));
+        northPanel.add(charLabel);
+        northPanel.add(gradehigh);
+        northPanel.add(searchBtn);
         contentPane.add(northPanel,BorderLayout.NORTH);
     }
 
@@ -137,6 +152,8 @@ public class MainView extends JFrame {
         request.setPageNow(pageNow);
         request.setPageSize(pagesize);
         request.setSerachKey(searchTxt.getText().trim());
+        request.setGradeLow(gradelow.getText().trim());
+        request.setGradeHigh(gradehigh.getText().trim());
         TableDTO tableDTO = studentService.retrieveStudents(request);
         return tableDTO;
     }

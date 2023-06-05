@@ -53,7 +53,7 @@ public class MainStudentSViewHandler extends KeyAdapter implements ActionListene
                     JOptionPane.showMessageDialog(mainStudentSView,"删除失败!");
                 }
             }
-        }else if("(按学号)查询".equals(text)){
+        }else if("查询".equals(text)){
             mainStudentSView.setPageNow(1);
             mainStudentSView.reloadTable();
         }else if("上一页".equals(text)){

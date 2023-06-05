@@ -1,28 +1,19 @@
 package com.roadjava.req;
 
-public class StudentRequest {
+public class RaceTimeRequest {
     private int pageNow;
     private int pageSize;
     private int start;
     private String serachKey;//查询词(主键)
 
-    private String GradeLow;
-    private String GradeHigh;
+    private String Jno;
 
-    public String getGradeLow() {
-        return GradeLow;
+    public String getJno() {
+        return Jno;
     }
 
-    public void setGradeLow(String gradeLow) {
-        GradeLow = gradeLow;
-    }
-
-    public String getGradeHigh() {
-        return GradeHigh;
-    }
-
-    public void setGradeHigh(String gradeHigh) {
-        GradeHigh = gradeHigh;
+    public void setJno(String jno) {
+        Jno = jno;
     }
 
     public int getStart() {

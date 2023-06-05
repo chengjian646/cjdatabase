@@ -1,7 +1,7 @@
 package com.roadjava.service.impl;
 
 import com.roadjava.entity.JDo;
-import com.roadjava.req.StudentRequest;
+import com.roadjava.req.JudgeRequest;
 import com.roadjava.res.TableDTO;
 import com.roadjava.service.JudgeService;
 import com.roadjava.service.StudentSService;
@@ -14,11 +14,21 @@ import java.util.Vector;
 
 public class JudgeServiceImpl implements JudgeService {
     @Override
-    public TableDTO retrieveStudents(StudentRequest request) {
+    public TableDTO retrieveStudents(JudgeRequest request) {
         StringBuilder sql = new StringBuilder();
         sql.append("select * from (select * from Judge ");
+        boolean hasPK=false;
         if(request.getSerachKey()!=null&&!"".equals(request.getSerachKey().trim())){
             sql.append("where Jno like '%"+request.getSerachKey().trim()+"%'");
+            hasPK=true;
+        }
+        if(request.getJname()!=null&&!"".equals(request.getJname().trim())){
+            if(hasPK==false){
+                sql.append(" where ");
+            }else{
+                sql.append(" and ");
+            }
+            sql.append("Jname like '%"+request.getJname().trim()+"%'");
         }
         sql.append(" order by Jno asc )offset ").append(request.getStart()).append(" rows fetch next ")
                 .append(request.getPageSize()).append(" rows only");//控制每页的数量

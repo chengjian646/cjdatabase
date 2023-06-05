@@ -1,7 +1,7 @@
 package com.roadjava.service.impl;
 
 import com.roadjava.entity.RaceTimeDo;
-import com.roadjava.req.StudentRequest;
+import com.roadjava.req.RaceTimeRequest;
 import com.roadjava.res.TableDTO;
 import com.roadjava.service.RaceTimeService;
 import com.roadjava.util.DBUtil;
@@ -13,13 +13,23 @@ import java.util.Vector;
 
 public class RaceTimeServiceImpl implements RaceTimeService {
     @Override
-    public TableDTO retrieveRaceTimes(StudentRequest request) {
+    public TableDTO retrieveRaceTimes(RaceTimeRequest request) {
         StringBuilder sql = new StringBuilder();
         sql.append("select * from (select * from RaceTime ");
+        boolean hasPK=false;
         if(request.getSerachKey()!=null&&!"".equals(request.getSerachKey().trim())){
             sql.append("where Rno like '%"+request.getSerachKey().trim()+"%'");
+            hasPK=true;
         }
-        sql.append(" order by Rno asc )offset ").append(request.getStart()).append(" rows fetch next ")
+        if(request.getJno()!=null&&!"".equals(request.getJno().trim())){
+            if(hasPK==false){
+                sql.append(" where ");
+            }else{
+                sql.append(" and ");
+            }
+            sql.append("Jno like '%"+request.getJno().trim()+"%'");
+        }
+        sql.append(" order by RDate asc )offset ").append(request.getStart()).append(" rows fetch next ")
                 .append(request.getPageSize()).append(" rows only");//控制每页的数量
 
         Connection conn = null;

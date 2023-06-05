@@ -1,7 +1,7 @@
 package com.roadjava.service.impl;
 
 import com.roadjava.entity.RaceDo;
-import com.roadjava.req.StudentRequest;
+import com.roadjava.req.RaceRequest;
 import com.roadjava.res.TableDTO;
 import com.roadjava.service.RaceService;
 import com.roadjava.service.StudentService;
@@ -14,15 +14,21 @@ import java.util.Vector;
 
 public class RaceServiceImpl implements RaceService {
     @Override
-    public TableDTO retrieveRaces(StudentRequest request) {
+    public TableDTO retrieveRaces(RaceRequest request) {
         StringBuilder sql = new StringBuilder();
-        /*sql.append("select * from StuRace");
-        if(request.getSearchKey()!=null&&!"".equals(request.getSerachKey().trim())){
-            sql.append(" where Rpno like '%"+request.getSerachKey().trim()+"%'");
-        }*/
         sql.append("select * from (select * from Race ");
+        boolean hasPK=false;
         if(request.getSerachKey()!=null&&!"".equals(request.getSerachKey().trim())){
             sql.append("where Rno like '%"+request.getSerachKey().trim()+"%'");
+            hasPK=true;
+        }
+        if(request.getRname()!=null&&!"".equals(request.getRname().trim())){
+            if(hasPK==false){
+                sql.append(" where ");
+            }else{
+                sql.append(" and ");
+            }
+            sql.append("Rname like '%"+request.getRname().trim()+"%'");
         }
         sql.append(" order by Rno asc )offset ").append(request.getStart()).append(" rows fetch next ")
                 .append(request.getPageSize()).append(" rows only");//控制每页的数量

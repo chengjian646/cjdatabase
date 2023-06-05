@@ -2,11 +2,11 @@ package com.roadjava.service;
 
 import com.roadjava.entity.SDo;
 import com.roadjava.entity.SelectSRPK;
-import com.roadjava.req.StudentRequest;
+import com.roadjava.req.StudentSRequest;
 import com.roadjava.res.TableDTO;
 
 public interface StudentSService {
-    TableDTO retrieveStudents(StudentRequest request);
+    TableDTO retrieveStudents(StudentSRequest request);
 
     boolean add(SDo sDo);
 

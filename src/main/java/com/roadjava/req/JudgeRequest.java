@@ -1,28 +1,18 @@
 package com.roadjava.req;
 
-public class StudentRequest {
+public class JudgeRequest {
     private int pageNow;
     private int pageSize;
     private int start;
     private String serachKey;//查询词(主键)
+    private String jname;
 
-    private String GradeLow;
-    private String GradeHigh;
-
-    public String getGradeLow() {
-        return GradeLow;
+    public String getJname() {
+        return jname;
     }
 
-    public void setGradeLow(String gradeLow) {
-        GradeLow = gradeLow;
-    }
-
-    public String getGradeHigh() {
-        return GradeHigh;
-    }
-
-    public void setGradeHigh(String gradeHigh) {
-        GradeHigh = gradeHigh;
+    public void setJname(String jname) {
+        this.jname = jname;
     }
 
     public int getStart() {

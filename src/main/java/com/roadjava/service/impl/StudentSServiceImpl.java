@@ -2,7 +2,7 @@ package com.roadjava.service.impl;
 
 import com.roadjava.entity.SDo;
 import com.roadjava.entity.SelectSRPK;
-import com.roadjava.req.StudentRequest;
+import com.roadjava.req.StudentSRequest;
 import com.roadjava.res.TableDTO;
 import com.roadjava.service.StudentSService;
 import com.roadjava.util.DBUtil;
@@ -14,11 +14,50 @@ import java.util.Vector;
 
 public class StudentSServiceImpl implements StudentSService {
     @Override
-    public TableDTO retrieveStudents(StudentRequest request) {
+    public TableDTO retrieveStudents(StudentSRequest request) {
         StringBuilder sql = new StringBuilder();
         sql.append("select * from (select * from Student ");
+        boolean has=false;
         if(request.getSerachKey()!=null&&!"".equals(request.getSerachKey().trim())){
             sql.append("where Sno like '%"+request.getSerachKey().trim()+"%'");
+            has=true;
+        }
+        if(request.getSname()!=null&&!"".equals(request.getSname().trim())){
+            if(has==false){
+                sql.append(" where ");
+                has=true;
+            }else{
+                sql.append(" and ");
+            }
+            sql.append("Sname like '%"+request.getSname().trim()+"%'");
+        }
+        if(request.getSgender()!=null&&!"".equals(request.getSgender().trim())){
+            if(has==false){
+                sql.append(" where ");
+                has=true;
+            }else{
+                sql.append(" and ");
+            }
+            sql.append("Sgender like '%"+request.getSgender().trim()+"%'");
+        }
+        if(request.getSagelow()!=null&&!"".equals(request.getSagelow().trim())&&
+                request.getSagehigh()!=null&&!"".equals((request.getSagehigh().trim()))){
+            if(has==false){
+                sql.append(" where ");
+            }else{
+                sql.append(" and ");
+            }
+            sql.append("Sage between ").append(Integer.valueOf(request.getSagelow())).append(" and ")
+                    .append(Integer.valueOf(request.getSagehigh()));
+        }
+        if(request.getSclass()!=null&&!"".equals(request.getSclass().trim())){
+            if(has==false){
+                sql.append(" where ");
+                has=true;
+            }else{
+                sql.append(" and ");
+            }
+            sql.append("Class like '%"+request.getSclass().trim()+"%'");
         }
         sql.append(" order by Sno asc )offset ").append(request.getStart()).append(" rows fetch next ")
                 .append(request.getPageSize()).append(" rows only");//控制每页的数量

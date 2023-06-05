@@ -1,7 +1,7 @@
 package com.roadjava.student.view.Main;
 
 import com.roadjava.handler.Main.MainJudgeViewHandler;
-import com.roadjava.req.StudentRequest;
+import com.roadjava.req.JudgeRequest;
 import com.roadjava.res.TableDTO;
 import com.roadjava.service.JudgeService;
 import com.roadjava.service.impl.JudgeServiceImpl;
@@ -18,8 +18,11 @@ public class MainJudgeView extends JFrame {
     JButton addBtn = new JButton("增加");
     JButton updateBtn = new JButton("修改");
     JButton delBtn = new JButton("删除");
+    JLabel searchLabel = new JLabel("裁判工号：");
     JTextField searchTxt = new JTextField(15);
-    JButton searchBtn= new JButton("(按工号)查询");
+    JLabel jnameLabel = new JLabel("裁判姓名：");
+    JTextField jnameTxt = new JTextField(15);
+    JButton searchBtn= new JButton("查询");
 
     JPanel southPanel = new JPanel(new FlowLayout((FlowLayout.RIGHT)));
     JButton preBtn = new JButton("上一页");
@@ -78,7 +81,12 @@ public class MainJudgeView extends JFrame {
         northPanel.add(addBtn);
         northPanel.add(updateBtn);
         northPanel.add(delBtn);
+        searchLabel.setPreferredSize(new Dimension(70,30));
+        northPanel.add(searchLabel);
         northPanel.add(searchTxt);
+        jnameLabel.setPreferredSize(new Dimension(70,30));
+        northPanel.add(jnameLabel);
+        northPanel.add(jnameTxt);
         northPanel.add(searchBtn);
 
         contentPane.add(northPanel,BorderLayout.NORTH);
@@ -131,10 +139,11 @@ public class MainJudgeView extends JFrame {
 
     private TableDTO getTableDTO() {
         JudgeService judgeService = new JudgeServiceImpl();
-        StudentRequest request = new StudentRequest();
+        JudgeRequest request = new JudgeRequest();
         request.setPageNow(pageNow);
         request.setPageSize(pagesize);
         request.setSerachKey(searchTxt.getText().trim());
+        request.setJname(jnameTxt.getText().trim());
         TableDTO tableDTO = judgeService.retrieveStudents(request);
         return tableDTO;
     }
