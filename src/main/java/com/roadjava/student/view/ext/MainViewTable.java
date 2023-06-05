@@ -34,7 +34,7 @@ public class MainViewTable extends JTable{
         }else if("学生信息表".equals(tableName)){
             columns = MainViewTableStuModel.getColumns();
         }else if("裁判信息表".equals(tableName)){
-
+            columns = MainViewTableJudgeModel.getColumns();
         }
 
         MainViewCellRender render = new MainViewCellRender();

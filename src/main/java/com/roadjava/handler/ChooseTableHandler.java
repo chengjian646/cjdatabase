@@ -28,7 +28,7 @@ public class ChooseTableHandler extends KeyAdapter implements ActionListener {
         }else if("学生信息表".equals(tableName)){
             new MainStudentSView(tableName);
         }else if("裁判信息表".equals(tableName)){
-
+            new MainJudgeView(tableName);
         }
         chooseTableView.dispose();
     }
