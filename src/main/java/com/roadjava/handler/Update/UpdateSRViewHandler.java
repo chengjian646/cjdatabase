@@ -3,8 +3,8 @@ package com.roadjava.handler.Update;
 import com.roadjava.entity.SRDo;
 import com.roadjava.service.interf.StudentService;
 import com.roadjava.service.impl.StudentServiceImpl;
-import com.roadjava.student.view.Main.MainView;
-import com.roadjava.student.view.Update.UpdateSRView;
+import com.roadjava.view.Main.MainView;
+import com.roadjava.view.Update.UpdateSRView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -25,7 +25,10 @@ public class UpdateSRViewHandler extends KeyAdapter implements ActionListener {
         if("修改".equals(text)){
             StudentService studentService =  new StudentServiceImpl();
             SRDo srDo = updateSRView.bulidUpdatedSRDo();
-            boolean updateResult = studentService.update(srDo);
+            if(!srDo.isEffective()){
+                return;
+            }
+            boolean updateResult = studentService.update(srDo,updateSRView);
             if(updateResult){
                 mainView.reloadTable();
                 updateSRView.dispose();//销毁窗口

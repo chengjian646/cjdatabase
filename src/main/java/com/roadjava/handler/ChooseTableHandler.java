@@ -1,7 +1,7 @@
 package com.roadjava.handler;
 
-import com.roadjava.student.view.*;
-import com.roadjava.student.view.Main.*;
+import com.roadjava.view.ChooseTableView;
+import com.roadjava.view.Main.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

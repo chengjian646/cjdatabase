@@ -8,6 +8,18 @@ public class RaceTimeDo {
     private String Rplace;
     private String Jno;
 
+    private boolean effective;
+    public RaceTimeDo(){
+        effective=true;
+    }
+
+    public boolean isEffective() {
+        return effective;
+    }
+
+    public void setEffective(boolean effective) {
+        this.effective = effective;
+    }
 
     public Timestamp getRtimestamp() {
         return Rtimestamp;

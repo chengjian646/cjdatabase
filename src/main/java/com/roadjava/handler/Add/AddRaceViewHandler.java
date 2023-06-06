@@ -3,8 +3,8 @@ package com.roadjava.handler.Add;
 import com.roadjava.entity.RaceDo;
 import com.roadjava.service.interf.RaceService;
 import com.roadjava.service.impl.RaceServiceImpl;
-import com.roadjava.student.view.Add.AddRaceView;
-import com.roadjava.student.view.Main.MainRaceView;
+import com.roadjava.view.Add.AddRaceView;
+import com.roadjava.view.Main.MainRaceView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -25,7 +25,7 @@ public class AddRaceViewHandler extends KeyAdapter implements ActionListener {
         if("添加".equals(text)){
             RaceService raceService =  new RaceServiceImpl();
             RaceDo raceDo = addRaceView.bulidRaceDo();
-            boolean addResult = raceService.add(raceDo);
+            boolean addResult = raceService.add(raceDo,addRaceView);
             if(addResult){
                 mainRaceView.reloadTable();
                 addRaceView.dispose();//销毁窗口

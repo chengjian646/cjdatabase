@@ -5,10 +5,15 @@ import com.roadjava.req.RaceRequest;
 import com.roadjava.res.TableDTO;
 import com.roadjava.service.interf.RaceService;
 import com.roadjava.util.DBUtil;
+import com.roadjava.view.Add.AddRaceView;
+import com.roadjava.view.Main.MainRaceView;
+import com.roadjava.view.Update.UpdateRaceView;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Vector;
 
 public class RaceServiceImpl implements RaceService {
@@ -77,7 +82,7 @@ public class RaceServiceImpl implements RaceService {
     }
 
     @Override
-    public boolean add(RaceDo raceDo) {
+    public boolean add(RaceDo raceDo, AddRaceView addRaceView) {
         StringBuilder sql = new StringBuilder();
         sql.append("insert into Race(Rno,Rname,Rpno) ");
         sql.append(" values(?,?,?)");
@@ -90,8 +95,15 @@ public class RaceServiceImpl implements RaceService {
             ps.setString(2,raceDo.getRname());
             ps.setString(3,raceDo.getRpno());
             return ps.executeUpdate()==1;
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (SQLException e){
+            if(e.getMessage().contains("SYS_C007543")){
+                JOptionPane.showMessageDialog(addRaceView,"该比赛编号已存在！");
+            }else if(e.getMessage().contains("SYS_C007544")){
+                JOptionPane.showMessageDialog(addRaceView,"该比赛的先决比赛编号无效！");
+            }else {
+                JOptionPane.showMessageDialog(addRaceView,e.getMessage());
+            }
+            //e.printStackTrace();
         }finally {
             DBUtil.closePs(ps);
             DBUtil.closeConn(conn);
@@ -131,7 +143,7 @@ public class RaceServiceImpl implements RaceService {
     }
 
     @Override
-    public boolean update(RaceDo raceDo) {
+    public boolean update(RaceDo raceDo, UpdateRaceView updateRaceView) {
         StringBuilder sql = new StringBuilder();
         sql.append("update Race set Rname=? , Rpno=? ");
         sql.append(" where Rno=?");
@@ -144,8 +156,15 @@ public class RaceServiceImpl implements RaceService {
             ps.setString(2,raceDo.getRpno());
             ps.setString(3,raceDo.getRno());
             return ps.executeUpdate()==1;
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (SQLException e){
+            if(e.getMessage().contains("SYS_C007543")){
+                JOptionPane.showMessageDialog(updateRaceView,"该比赛编号已存在！");
+            }else if(e.getMessage().contains("SYS_C007544")){
+                JOptionPane.showMessageDialog(updateRaceView,"该比赛的先决比赛编号无效！");
+            }else {
+                JOptionPane.showMessageDialog(updateRaceView,e.getMessage());
+            }
+            //e.printStackTrace();
         }finally {
             DBUtil.closePs(ps);
             DBUtil.closeConn(conn);
@@ -154,7 +173,7 @@ public class RaceServiceImpl implements RaceService {
     }
 
     @Override
-    public boolean delete(String[] selectedRace) {
+    public boolean delete(String[] selectedRace, MainRaceView mainRaceView) {
         StringBuilder sql = new StringBuilder();
         int length = selectedRace.length;
         sql.append("delete from Race where Rno in ( ");
@@ -176,8 +195,15 @@ public class RaceServiceImpl implements RaceService {
                 ps.setString(i+1,selectedRace[i]);
             }
             return ps.executeUpdate()==length;
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (SQLException e){
+            if(e.getMessage().contains("SYS_C007550")){
+                JOptionPane.showMessageDialog(mainRaceView,"该比赛在赛程表中仍有记录，此处无法删除！");
+            }else if(e.getMessage().contains("SYS_C007547")){
+                JOptionPane.showMessageDialog(mainRaceView,"该比赛在选赛表中仍有记录，此处无法删除！");
+            }else {
+                JOptionPane.showMessageDialog(mainRaceView,e.getMessage());
+            }
+            //e.printStackTrace();
         }finally {
             DBUtil.closePs(ps);
             DBUtil.closeConn(conn);

@@ -3,8 +3,8 @@ package com.roadjava.handler.Update;
 import com.roadjava.entity.JDo;
 import com.roadjava.service.interf.JudgeService;
 import com.roadjava.service.impl.JudgeServiceImpl;
-import com.roadjava.student.view.Main.MainJudgeView;
-import com.roadjava.student.view.Update.UpdateJudgeView;
+import com.roadjava.view.Main.MainJudgeView;
+import com.roadjava.view.Update.UpdateJudgeView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

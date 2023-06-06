@@ -2,9 +2,9 @@ package com.roadjava.handler.Main;
 
 import com.roadjava.service.interf.RaceService;
 import com.roadjava.service.impl.RaceServiceImpl;
-import com.roadjava.student.view.Add.AddRaceView;
-import com.roadjava.student.view.Main.MainRaceView;
-import com.roadjava.student.view.Update.UpdateRaceView;
+import com.roadjava.view.Add.AddRaceView;
+import com.roadjava.view.Main.MainRaceView;
+import com.roadjava.view.Update.UpdateRaceView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -45,7 +45,7 @@ public class MainRaceViewHandler extends KeyAdapter implements ActionListener {
             if(option == JOptionPane.YES_OPTION){
                 //执行删除
                 RaceService raceService = new RaceServiceImpl();
-                boolean deleteResult = raceService.delete(selectedRaces);
+                boolean deleteResult = raceService.delete(selectedRaces,mainRaceView);
                 if(deleteResult){
                     //重新加载
                     mainRaceView.reloadTable();

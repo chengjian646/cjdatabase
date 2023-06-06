@@ -2,9 +2,9 @@ package com.roadjava.handler.Main;
 
 import com.roadjava.service.interf.StudentSService;
 import com.roadjava.service.impl.StudentSServiceImpl;
-import com.roadjava.student.view.Add.AddSView;
-import com.roadjava.student.view.Main.MainStudentSView;
-import com.roadjava.student.view.Update.UpdateSView;
+import com.roadjava.view.Add.AddSView;
+import com.roadjava.view.Main.MainStudentSView;
+import com.roadjava.view.Update.UpdateSView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -45,7 +45,7 @@ public class MainStudentSViewHandler extends KeyAdapter implements ActionListene
             if(option == JOptionPane.YES_OPTION){
                 //执行删除
                 StudentSService studentSService = new StudentSServiceImpl();
-                boolean deleteResult = studentSService.delete(selectedStu);
+                boolean deleteResult = studentSService.delete(selectedStu,mainStudentSView);
                 if(deleteResult){
                     //重新加载
                     mainStudentSView.reloadTable();

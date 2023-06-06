@@ -3,8 +3,8 @@ package com.roadjava.handler.Add;
 import com.roadjava.entity.SDo;
 import com.roadjava.service.interf.StudentSService;
 import com.roadjava.service.impl.StudentSServiceImpl;
-import com.roadjava.student.view.Add.AddSView;
-import com.roadjava.student.view.Main.MainStudentSView;
+import com.roadjava.view.Add.AddSView;
+import com.roadjava.view.Main.MainStudentSView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -25,7 +25,10 @@ public class AddSViewHandler extends KeyAdapter implements ActionListener {
         if("添加".equals(text)){
             StudentSService studentSService =  new StudentSServiceImpl();
             SDo sDo = addSView.bulidSDo();
-            boolean addResult = studentSService.add(sDo);
+            if(!sDo.isEffective()){
+                return;
+            }
+            boolean addResult = studentSService.add(sDo,addSView);
             if(addResult){
                 mainStudentSView.reloadTable();
                 addSView.dispose();//销毁窗口

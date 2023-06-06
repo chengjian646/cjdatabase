@@ -2,9 +2,9 @@ package com.roadjava.handler.Main;
 
 import com.roadjava.service.interf.RaceTimeService;
 import com.roadjava.service.impl.RaceTimeServiceImpl;
-import com.roadjava.student.view.Add.AddRaceTimeView;
-import com.roadjava.student.view.Main.MainRaceTimeView;
-import com.roadjava.student.view.Update.UpdateRaceTimeView;
+import com.roadjava.view.Add.AddRaceTimeView;
+import com.roadjava.view.Main.MainRaceTimeView;
+import com.roadjava.view.Update.UpdateRaceTimeView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

@@ -2,9 +2,9 @@ package com.roadjava.handler.Main;
 
 import com.roadjava.service.interf.JudgeService;
 import com.roadjava.service.impl.JudgeServiceImpl;
-import com.roadjava.student.view.Add.AddJudgeView;
-import com.roadjava.student.view.Main.MainJudgeView;
-import com.roadjava.student.view.Update.UpdateJudgeView;
+import com.roadjava.view.Add.AddJudgeView;
+import com.roadjava.view.Main.MainJudgeView;
+import com.roadjava.view.Update.UpdateJudgeView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -45,7 +45,7 @@ public class MainJudgeViewHandler extends KeyAdapter implements ActionListener {
             if(option == JOptionPane.YES_OPTION){
                 //执行删除
                 JudgeService judgeService = new JudgeServiceImpl();
-                boolean deleteResult = judgeService.delete(selectedJudge);
+                boolean deleteResult = judgeService.delete(selectedJudge,mainJudgeView);
                 if(deleteResult){
                     //重新加载
                     mainJudgeView.reloadTable();

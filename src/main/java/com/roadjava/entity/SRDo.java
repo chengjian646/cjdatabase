@@ -5,6 +5,19 @@ public class SRDo {
     private String Rno;
     private Integer Grade;
 
+    private boolean effective;
+    public SRDo(){
+        effective=true;
+    }
+
+    public boolean isEffective() {
+        return effective;
+    }
+
+    public void setEffective(boolean effective) {
+        this.effective = effective;
+    }
+
     public String getSno() {
         return Sno;
     }

@@ -6,10 +6,14 @@ import com.roadjava.req.StudentRequest;
 import com.roadjava.res.TableDTO;
 import com.roadjava.service.interf.StudentService;
 import com.roadjava.util.DBUtil;
+import com.roadjava.view.Add.AddSRView;
+import com.roadjava.view.Update.UpdateSRView;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Vector;
 
 public class StudentServiceImpl implements StudentService {
@@ -80,7 +84,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public boolean add(SRDo srDo) {
+    public boolean add(SRDo srDo, AddSRView addSRView) {
         StringBuilder sql = new StringBuilder();
         sql.append("insert into StuRace(Sno,Rno,Grade) ");
         sql.append(" values(?,?,?)");
@@ -93,8 +97,17 @@ public class StudentServiceImpl implements StudentService {
             ps.setString(2,srDo.getRno());
             ps.setInt(3,srDo.getGrade());
             return ps.executeUpdate()==1;
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (SQLException e){
+            if(e.getMessage().contains("SYS_C007545")){
+                JOptionPane.showMessageDialog(addSRView,"该学生已选该比赛！");
+            }else if(e.getMessage().contains("SYS_C007546")){
+                JOptionPane.showMessageDialog(addSRView,"该学生不存在！");
+            }else if(e.getMessage().contains("SYS_C007547")) {
+                JOptionPane.showMessageDialog(addSRView, "该比赛不存在！");
+            }else{
+                JOptionPane.showMessageDialog(addSRView,e.getMessage());
+            }
+            //e.printStackTrace();
         }finally {
             DBUtil.closePs(ps);
             DBUtil.closeConn(conn);
@@ -135,7 +148,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public boolean update(SRDo srDo) {
+    public boolean update(SRDo srDo, UpdateSRView updateSRView) {
         StringBuilder sql = new StringBuilder();
         sql.append("update StuRace set Grade=? ");
         sql.append(" where Sno=? and Rno=?");
@@ -148,8 +161,17 @@ public class StudentServiceImpl implements StudentService {
             ps.setString(2,srDo.getSno());
             ps.setString(3,srDo.getRno());
             return ps.executeUpdate()==1;
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (SQLException e){
+            if(e.getMessage().contains("SYS_C007545")){
+                JOptionPane.showMessageDialog(updateSRView,"该学生已选该比赛！");
+            }else if(e.getMessage().contains("SYS_C007546")){
+                JOptionPane.showMessageDialog(updateSRView,"该学生不存在！");
+            }else if(e.getMessage().contains("SYS_C007547")) {
+                JOptionPane.showMessageDialog(updateSRView, "该比赛不存在！");
+            }else{
+                JOptionPane.showMessageDialog(updateSRView,e.getMessage());
+            }
+            //e.printStackTrace();
         }finally {
             DBUtil.closePs(ps);
             DBUtil.closeConn(conn);

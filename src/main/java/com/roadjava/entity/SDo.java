@@ -7,6 +7,19 @@ public class SDo {
     private Integer Sage;
     private String Sclass;
 
+    private boolean effective;
+    public SDo(){
+        effective=true;
+    }
+
+    public boolean isEffective() {
+        return effective;
+    }
+
+    public void setEffective(boolean effective) {
+        this.effective = effective;
+    }
+
     public String getSno() {
         return Sno;
     }

@@ -5,10 +5,14 @@ import com.roadjava.req.JudgeRequest;
 import com.roadjava.res.TableDTO;
 import com.roadjava.service.interf.JudgeService;
 import com.roadjava.util.DBUtil;
+import com.roadjava.view.Add.AddJudgeView;
+import com.roadjava.view.Main.MainJudgeView;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Vector;
 
 public class JudgeServiceImpl implements JudgeService {
@@ -75,7 +79,7 @@ public class JudgeServiceImpl implements JudgeService {
     }
 
     @Override
-    public boolean add(JDo jDo) {
+    public boolean add(JDo jDo, AddJudgeView addJudgeView) {
         StringBuilder sql = new StringBuilder();
         sql.append("insert into Judge(Jno,Jname) ");
         sql.append(" values(?,?)");
@@ -87,8 +91,13 @@ public class JudgeServiceImpl implements JudgeService {
             ps.setString(1,jDo.getJno());
             ps.setString(2,jDo.getJname());
             return ps.executeUpdate()==1;
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (SQLException e){
+            if(e.getMessage().contains("SYS_C007541")){
+                JOptionPane.showMessageDialog(addJudgeView,"该工号已被添加！");
+            }else{
+                JOptionPane.showMessageDialog(addJudgeView,e.getMessage());
+            }
+            //e.printStackTrace();
         }finally {
             DBUtil.closePs(ps);
             DBUtil.closeConn(conn);
@@ -148,7 +157,7 @@ public class JudgeServiceImpl implements JudgeService {
     }
 
     @Override
-    public boolean delete(String[] selectedJudge) {
+    public boolean delete(String[] selectedJudge, MainJudgeView mainJudgeView) {
         StringBuilder sql = new StringBuilder();
         int length = selectedJudge.length;
         sql.append("delete from Judge where Jno in ( ");
@@ -171,8 +180,13 @@ public class JudgeServiceImpl implements JudgeService {
                 ps.setString(i+1,selectedJudge[i]);
             }
             return ps.executeUpdate()==length;
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (SQLException e){
+            if(e.getMessage().contains("SYS_C007549")){
+                JOptionPane.showMessageDialog(mainJudgeView,"该裁判在赛程表中仍有记录，此处无法删除！");
+            }else {
+                JOptionPane.showMessageDialog(mainJudgeView,e.getMessage());
+            }
+            //e.printStackTrace();
         }finally {
             DBUtil.closePs(ps);
             DBUtil.closeConn(conn);

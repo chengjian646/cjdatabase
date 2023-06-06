@@ -3,8 +3,8 @@ package com.roadjava.handler.Update;
 import com.roadjava.entity.SDo;
 import com.roadjava.service.interf.StudentSService;
 import com.roadjava.service.impl.StudentSServiceImpl;
-import com.roadjava.student.view.Main.MainStudentSView;
-import com.roadjava.student.view.Update.UpdateSView;
+import com.roadjava.view.Main.MainStudentSView;
+import com.roadjava.view.Update.UpdateSView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -25,7 +25,10 @@ public class UpdateSViewHandler extends KeyAdapter implements ActionListener {
         if("修改".equals(text)){
             StudentSService studentSService =  new StudentSServiceImpl();
             SDo sDo = updateSView.bulidSDo();
-            boolean updateResult = studentSService.update(sDo);
+            if(!sDo.isEffective()){
+                return;
+            }
+            boolean updateResult = studentSService.update(sDo,updateSView);
             if(updateResult){
                 mainStudentSView.reloadTable();
                 updateSView.dispose();//销毁窗口

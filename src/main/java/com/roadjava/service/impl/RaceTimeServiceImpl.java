@@ -5,7 +5,10 @@ import com.roadjava.req.RaceTimeRequest;
 import com.roadjava.res.TableDTO;
 import com.roadjava.service.interf.RaceTimeService;
 import com.roadjava.util.DBUtil;
+import com.roadjava.view.Add.AddRaceTimeView;
+import com.roadjava.view.Update.UpdateRaceTimeView;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.Vector;
 
@@ -77,7 +80,7 @@ public class RaceTimeServiceImpl implements RaceTimeService {
     }
 
     @Override
-    public boolean add(RaceTimeDo raceTimeDo) {
+    public boolean add(RaceTimeDo raceTimeDo, AddRaceTimeView addRaceTimeView) {
         StringBuilder sql = new StringBuilder();
         sql.append("insert into RaceTime(Rno,Rdate,Rplace,Jno) ");
         sql.append(" values(?,?,?,?)");
@@ -87,15 +90,21 @@ public class RaceTimeServiceImpl implements RaceTimeService {
             conn = DBUtil.getConn();
             ps = conn.prepareStatement(sql.toString());
             ps.setString(1,raceTimeDo.getRno());
-
-            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            //String temp=sdf.format(raceTimeDo.getDate());
             ps.setTimestamp(2,raceTimeDo.getRtimestamp());
             ps.setString(3,raceTimeDo.getRplace());
             ps.setString(4,raceTimeDo.getJno());
             return ps.executeUpdate()==1;
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (SQLException e){
+            if(e.getMessage().contains("SYS_C007548")){
+                JOptionPane.showMessageDialog(addRaceTimeView,"该比赛赛程已被添加！");
+            }else if(e.getMessage().contains("SYS_C007549")){
+                JOptionPane.showMessageDialog(addRaceTimeView,"该裁判不存在！");
+            }else if(e.getMessage().contains("SYS_C007550")) {
+                JOptionPane.showMessageDialog(addRaceTimeView, "该比赛不存在！");
+            }else{
+                JOptionPane.showMessageDialog(addRaceTimeView,e.getMessage());
+            }
+            //e.printStackTrace();
         }finally {
             DBUtil.closePs(ps);
             DBUtil.closeConn(conn);
@@ -137,7 +146,7 @@ public class RaceTimeServiceImpl implements RaceTimeService {
     }
 
     @Override
-    public boolean update(RaceTimeDo raceTimeDo) {
+    public boolean update(RaceTimeDo raceTimeDo, UpdateRaceTimeView updateRaceTimeView) {
         StringBuilder sql = new StringBuilder();
         sql.append("update RaceTime set RDate=? , RPlace=? ,Jno=? ");
         sql.append(" where Rno=?");
@@ -151,8 +160,17 @@ public class RaceTimeServiceImpl implements RaceTimeService {
             ps.setString(3,raceTimeDo.getJno());
             ps.setString(4,raceTimeDo.getRno());
             return ps.executeUpdate()==1;
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (SQLException e){
+            if(e.getMessage().contains("SYS_C007548")){
+                JOptionPane.showMessageDialog(updateRaceTimeView,"该比赛赛程已被添加！");
+            }else if(e.getMessage().contains("SYS_C007549")){
+                JOptionPane.showMessageDialog(updateRaceTimeView,"该裁判不存在！");
+            }else if(e.getMessage().contains("SYS_C007550")){
+                JOptionPane.showMessageDialog(updateRaceTimeView,"该比赛不存在！");
+            }else{
+                JOptionPane.showMessageDialog(updateRaceTimeView,e.getMessage());
+            }
+            //e.printStackTrace();
         }finally {
             DBUtil.closePs(ps);
             DBUtil.closeConn(conn);

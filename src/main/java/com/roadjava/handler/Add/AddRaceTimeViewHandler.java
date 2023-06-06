@@ -3,8 +3,8 @@ package com.roadjava.handler.Add;
 import com.roadjava.entity.RaceTimeDo;
 import com.roadjava.service.interf.RaceTimeService;
 import com.roadjava.service.impl.RaceTimeServiceImpl;
-import com.roadjava.student.view.Add.AddRaceTimeView;
-import com.roadjava.student.view.Main.MainRaceTimeView;
+import com.roadjava.view.Add.AddRaceTimeView;
+import com.roadjava.view.Main.MainRaceTimeView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -25,7 +25,10 @@ public class AddRaceTimeViewHandler extends KeyAdapter implements ActionListener
         if("添加".equals(text)){
             RaceTimeService raceTimeService =  new RaceTimeServiceImpl();
             RaceTimeDo raceTimeDo = addRaceTimeView.bulidRaceTimeDo();
-            boolean addResult = raceTimeService.add(raceTimeDo);
+            if(!raceTimeDo.isEffective()){
+                return;
+            }
+            boolean addResult = raceTimeService.add(raceTimeDo,addRaceTimeView);
             if(addResult){
                 mainRaceTimeView.reloadTable();
                 addRaceTimeView.dispose();//销毁窗口

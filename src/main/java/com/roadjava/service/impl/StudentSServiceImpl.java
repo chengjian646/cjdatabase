@@ -5,10 +5,15 @@ import com.roadjava.req.StudentSRequest;
 import com.roadjava.res.TableDTO;
 import com.roadjava.service.interf.StudentSService;
 import com.roadjava.util.DBUtil;
+import com.roadjava.view.Add.AddSView;
+import com.roadjava.view.Main.MainStudentSView;
+import com.roadjava.view.Update.UpdateSView;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Vector;
 
 public class StudentSServiceImpl implements StudentSService {
@@ -110,7 +115,7 @@ public class StudentSServiceImpl implements StudentSService {
     }
 
     @Override
-    public boolean add(SDo sDo) {
+    public boolean add(SDo sDo, AddSView addSView) {
         StringBuilder sql = new StringBuilder();
         sql.append("insert into Student(Sno,Sname,Sgender,Sage,Class) ");
         sql.append(" values(?,?,?,?,?)");
@@ -125,8 +130,13 @@ public class StudentSServiceImpl implements StudentSService {
             ps.setInt(4,sDo.getSage());
             ps.setString(5,sDo.getSclass());
             return ps.executeUpdate()==1;
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (SQLException e){
+            if(e.getMessage().contains("SYS_C007537")){
+                JOptionPane.showMessageDialog(addSView,"该学号已被添加！");
+            }else{
+                JOptionPane.showMessageDialog(addSView,e.getMessage());
+            }
+            //e.printStackTrace();
         }finally {
             DBUtil.closePs(ps);
             DBUtil.closeConn(conn);
@@ -170,7 +180,7 @@ public class StudentSServiceImpl implements StudentSService {
     }
 
     @Override
-    public boolean update(SDo sDo) {
+    public boolean update(SDo sDo, UpdateSView updateSView) {
         StringBuilder sql = new StringBuilder();
         sql.append("update Student set Sname=?,Sgender=?,Sage=?,Class=? ");
         sql.append(" where Sno=?");
@@ -185,8 +195,13 @@ public class StudentSServiceImpl implements StudentSService {
             ps.setString(4,sDo.getSclass());
             ps.setString(5,sDo.getSno());
             return ps.executeUpdate()==1;
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (SQLException e){
+            if(e.getMessage().contains("SYS_C007537")){
+                JOptionPane.showMessageDialog(updateSView,"该学号已被添加！");
+            }else{
+                JOptionPane.showMessageDialog(updateSView,e.getMessage());
+            }
+            //e.printStackTrace();
         }finally {
             DBUtil.closePs(ps);
             DBUtil.closeConn(conn);
@@ -195,7 +210,7 @@ public class StudentSServiceImpl implements StudentSService {
     }
 
     @Override
-    public boolean delete(String[] selectedStu) {
+    public boolean delete(String[] selectedStu, MainStudentSView mainStudentSView) {
         StringBuilder sql = new StringBuilder();
         int length = selectedStu.length;
         sql.append("delete from Student where Sno in ( ");
@@ -218,8 +233,13 @@ public class StudentSServiceImpl implements StudentSService {
                 ps.setString(i+1,selectedStu[i]);
             }
             return ps.executeUpdate()==length;
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (SQLException e){
+            if(e.getMessage().contains("SYS_C007546")){
+                JOptionPane.showMessageDialog(mainStudentSView,"该学生在选赛表中仍有记录，此处无法删除！");
+            }else {
+                JOptionPane.showMessageDialog(mainStudentSView,e.getMessage());
+            }
+            //e.printStackTrace();
         }finally {
             DBUtil.closePs(ps);
             DBUtil.closeConn(conn);

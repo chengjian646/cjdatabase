@@ -3,8 +3,8 @@ package com.roadjava.handler.Add;
 import com.roadjava.entity.JDo;
 import com.roadjava.service.interf.JudgeService;
 import com.roadjava.service.impl.JudgeServiceImpl;
-import com.roadjava.student.view.Add.AddJudgeView;
-import com.roadjava.student.view.Main.MainJudgeView;
+import com.roadjava.view.Add.AddJudgeView;
+import com.roadjava.view.Main.MainJudgeView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -25,7 +25,7 @@ public class AddJudgeViewHandler extends KeyAdapter implements ActionListener {
         if("添加".equals(text)){
             JudgeService judgeService =  new JudgeServiceImpl();
             JDo jDo = addJudgeView.bulidJDo();
-            boolean addResult = judgeService.add(jDo);
+            boolean addResult = judgeService.add(jDo,addJudgeView);
             if(addResult){
                 mainJudgeView.reloadTable();
                 addJudgeView.dispose();//销毁窗口
